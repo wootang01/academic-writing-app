@@ -1,46 +1,110 @@
-# Getting Started with Create React App
+# Academic Writing Coach for Hong Kong Secondary Students
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An educational application designed specifically for Hong Kong secondary school students (ages 12-18) to learn and improve academic writing skills in English.
 
-## Available Scripts
+## Features Tailored for Hong Kong Students
 
-In the project directory, you can run:
+This application includes:
 
-### `npm start`
+1. **Academic Writing Concepts**: Learn fundamental concepts about academic writing, including its purposes, structures, and conventions - ideal for students who haven't been introduced to academic writing in their regular curriculum.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. **Step-by-Step Writing Process**: A guided approach to academic writing broken down into manageable steps, with Hong Kong-specific examples and Cantonese translations of key terms.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. **Guided Practice Exercises**: Apply what you've learned with interactive exercises designed to develop academic writing skills gradually.
 
-### `npm test`
+4. **Writing Feedback Tool**: Submit your academic writing to receive structured feedback with specific suggestions for improvement.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Hong Kong-Specific Content
 
-### `npm run build`
+- **Culturally Relevant Examples**: All examples focus on topics familiar to Hong Kong students (MTR system, local tourism, school uniforms, etc.)
+- **Cantonese Translations**: Key academic writing terms include Cantonese translations
+- **Common Language Issues**: Special attention to grammar challenges specific to Cantonese speakers
+- **Local Resources**: Links to Hong Kong Public Libraries and local educational resources
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Target Audience
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Hong Kong secondary school students (ages 12-18)
+- Elementary to intermediate English language users (below IELTS 6)
+- Students who need to learn the basics of academic writing from scratch
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technical Details
 
-### `npm run eject`
+This application is built with:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- React (with TypeScript)
+- Material UI for a responsive interface suitable for iPads and mobile phones
+- React Router for navigation
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Getting Started
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Prerequisites
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Node.js (version 14 or higher)
+- npm (version 6 or higher)
 
-## Learn More
+### Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Clone this repository
+```bash
+git clone [repository-url]
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Navigate to the project directory
+```bash
+cd academic-writing-app
+```
+
+3. Install dependencies
+```bash
+npm install
+```
+
+4. Start the development server
+```bash
+npm start
+```
+
+The application will open in your browser at `http://localhost:3000`.
+
+## Usage Guide
+
+### For Students
+
+1. Begin by exploring the **Writing Concepts** section to learn the basics of academic writing
+2. Move to the **Writing Process** section to understand the step-by-step approach to creating academic texts
+3. Practice your skills with the guided exercises in the **Practice** section
+4. When you're ready, use the **Feedback Tool** to submit your writing and receive feedback
+
+### For Teachers
+
+This application can be used as a supplementary resource in English language classes:
+
+- Assign specific sections to students based on their needs
+- Use the examples as discussion points in class
+- Have students complete practice exercises and submit their writing for feedback
+- Encourage collaborative learning by having students discuss the concepts in small groups
+
+## Mobile Compatibility
+
+The application is fully responsive and designed to work well on:
+- iPads and tablets
+- Mobile phones
+- Desktop computers
+
+## Development Roadmap
+
+Future updates will include:
+- More Hong Kong-specific practice exercises
+- Additional Cantonese language support
+- Integration with local school curriculums
+- Advanced writing feedback with AI analysis
+- Progress tracking for students
+- Collaborative features for classroom use
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+Developed specifically to address the unique needs of Hong Kong secondary school students learning academic English writing skills.
