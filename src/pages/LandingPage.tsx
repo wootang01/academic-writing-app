@@ -76,7 +76,7 @@ const LandingPage: React.FC = () => {
             variant="h3"
             sx={{ mb: 2, fontWeight: 'bold' }}
           >
-            Welcome to Academic Writing Tutor
+            Welcome to Everwrite Tutor
           </Typography>
           <Typography variant="h6" color="text.secondary" sx={{ mb: 4 }}>
             Your personal guide to mastering academic writing skills

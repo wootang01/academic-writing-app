@@ -105,7 +105,7 @@ const Header: React.FC = () => {
                 alignItems: 'center'
               }}
             >
-              Academic Writing Tutor
+              Everwrite Tutor
             </Typography>
           </Box>
 

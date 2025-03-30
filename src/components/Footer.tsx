@@ -1,9 +1,8 @@
 import React from 'react';
-import { Box, Typography, Container, Link, useTheme } from '@mui/material';
+import { Box, Typography, Container, Link } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 
 const Footer: React.FC = () => {
-  const theme = useTheme();
   const currentYear = new Date().getFullYear();
 
   return (
