@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link as RouterLink, useLocation } from 'react-router-dom';
 import { 
   AppBar, 
   Toolbar, 
@@ -10,16 +10,28 @@ import {
   MenuItem, 
   Box,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Container,
+  Divider,
+  Avatar,
+  ListItemIcon,
+  Tooltip
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SchoolIcon from '@mui/icons-material/School';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import CreateIcon from '@mui/icons-material/Create';
+import FeedbackIcon from '@mui/icons-material/Feedback';
+import ScienceIcon from '@mui/icons-material/Science';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const Header: React.FC = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
   const navigate = useNavigate();
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -35,112 +47,184 @@ const Header: React.FC = () => {
     handleClose();
   };
 
-  return (
-    <AppBar position="sticky" color="primary">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 }}
-          component={Link}
-          to="/"
-        >
-          <SchoolIcon />
-        </IconButton>
-        
-        <Typography 
-          variant="h6" 
-          component="div" 
-          sx={{ flexGrow: 1 }}
-        >
-          Academic Writing Tutor
-        </Typography>
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
 
-        {isMobile ? (
-          <>
-            <IconButton
-              size="large"
-              edge="end"
-              color="inherit"
-              aria-label="menu"
-              onClick={handleMenu}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+  const navItems = [
+    { name: 'Writing Concepts', path: '/concepts', icon: <MenuBookIcon /> },
+    { name: 'Writing Process', path: '/process', icon: <ListAltIcon /> },
+    { name: 'Practice Exercises', path: '/practice', icon: <CreateIcon /> },
+    { name: 'Writing Feedback', path: '/feedback', icon: <FeedbackIcon /> },
+    { name: 'Subject Writing', path: '/subject-writing', icon: <ScienceIcon /> }
+  ];
+
+  return (
+    <AppBar 
+      position="sticky" 
+      color="primary" 
+      elevation={0}
+      sx={{ 
+        bgcolor: 'white', 
+        color: 'text.primary',
+        borderBottom: '1px solid',
+        borderColor: 'divider'
+      }}
+    >
+      <Container maxWidth="lg">
+        <Toolbar sx={{ py: 1 }}>
+          {/* Logo and Brand */}
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center',
+              mr: 3
+            }}
+            component={RouterLink}
+            to="/"
+          >
+            <Avatar 
+              sx={{ 
+                bgcolor: 'primary.main', 
+                width: isMobile ? 36 : 40, 
+                height: isMobile ? 36 : 40,
+                mr: 1.5,
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+            >
+              <SchoolIcon fontSize="small" />
+            </Avatar>
+            
+            <Typography 
+              variant={isMobile ? "h6" : "h5"} 
+              component="div" 
+              sx={{ 
+                fontWeight: 600,
+                color: 'primary.main',
+                letterSpacing: '-0.01rem',
+                display: 'flex',
+                alignItems: 'center'
               }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
             >
-              <MenuItem onClick={() => handleMenuItemClick('/concepts')}>
-                Writing Concepts
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuItemClick('/process')}>
-                Writing Process
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuItemClick('/practice')}>
-                Practice Exercises
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuItemClick('/feedback')}>
-                Writing Feedback
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuItemClick('/subject-writing')}>
-                Subject Writing
-              </MenuItem>
-            </Menu>
-          </>
-        ) : (
-          <Box>
-            <Button 
-              color="inherit" 
-              component={Link} 
-              to="/concepts"
-            >
-              Writing Concepts
-            </Button>
-            <Button 
-              color="inherit" 
-              component={Link} 
-              to="/process"
-              startIcon={<ListAltIcon />}
-            >
-              Writing Process
-            </Button>
-            <Button 
-              color="inherit" 
-              component={Link} 
-              to="/practice"
-            >
-              Practice Exercises
-            </Button>
-            <Button 
-              color="inherit" 
-              component={Link} 
-              to="/feedback"
-            >
-              Writing Feedback
-            </Button>
-            <Button 
-              color="inherit" 
-              component={Link} 
-              to="/subject-writing"
-            >
-              Subject Writing
-            </Button>
+              Academic Writing Tutor
+            </Typography>
           </Box>
-        )}
-      </Toolbar>
+
+          {/* Mobile Menu */}
+          {isMobile ? (
+            <>
+              <Box sx={{ flexGrow: 1 }} />
+              <IconButton
+                size="large"
+                edge="end"
+                color="inherit"
+                aria-label="menu"
+                onClick={handleMenu}
+                sx={{ color: 'text.primary' }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                PaperProps={{
+                  elevation: 3,
+                  sx: { 
+                    mt: 1.5,
+                    borderRadius: 2,
+                    minWidth: 200
+                  }
+                }}
+              >
+                {navItems.map((item) => (
+                  <MenuItem 
+                    key={item.path} 
+                    onClick={() => handleMenuItemClick(item.path)}
+                    sx={{ 
+                      py: 1.5,
+                      color: isActive(item.path) ? 'primary.main' : 'inherit',
+                      bgcolor: isActive(item.path) ? 'rgba(46, 80, 119, 0.08)' : 'transparent'
+                    }}
+                  >
+                    <ListItemIcon sx={{ color: isActive(item.path) ? 'primary.main' : 'text.secondary' }}>
+                      {item.icon}
+                    </ListItemIcon>
+                    <Typography variant="body1">
+                      {item.name}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
+          ) : (
+            <>
+              <Box sx={{ display: 'flex', flexGrow: 1, ml: 2 }}>
+                {navItems.map((item) => (
+                  <Button 
+                    key={item.path}
+                    component={RouterLink}
+                    to={item.path}
+                    sx={{
+                      mx: isTablet ? 0.5 : 1,
+                      px: isTablet ? 1.5 : 2,
+                      py: 1.5,
+                      color: isActive(item.path) ? 'primary.main' : 'text.secondary',
+                      borderBottom: '2px solid',
+                      borderColor: isActive(item.path) ? 'primary.main' : 'transparent',
+                      borderRadius: 0,
+                      '&:hover': {
+                        bgcolor: 'rgba(46, 80, 119, 0.04)',
+                        borderColor: isActive(item.path) ? 'primary.main' : 'primary.light',
+                      }
+                    }}
+                    startIcon={isTablet ? null : item.icon}
+                  >
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        fontWeight: isActive(item.path) ? 600 : 500,
+                        whiteSpace: 'nowrap' 
+                      }}
+                    >
+                      {isTablet ? (
+                        <Tooltip title={item.name}>
+                          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                            {item.icon}
+                          </Box>
+                        </Tooltip>
+                      ) : (
+                        item.name
+                      )}
+                    </Typography>
+                  </Button>
+                ))}
+              </Box>
+              
+              <Button
+                variant="contained"
+                color="primary"
+                component={RouterLink}
+                to="/feedback"
+                endIcon={<ChevronRightIcon />}
+                sx={{
+                  borderRadius: '20px',
+                  px: 2.5,
+                  py: 0.8,
+                  boxShadow: 2,
+                  '&:hover': {
+                    boxShadow: 3,
+                  }
+                }}
+              >
+                Get Feedback
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };

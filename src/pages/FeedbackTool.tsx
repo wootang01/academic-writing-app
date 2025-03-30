@@ -20,7 +20,8 @@ import {
   Chip,
   Grid,
   LinearProgress,
-  Tooltip
+  Tooltip,
+  useTheme
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -29,16 +30,19 @@ import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/Info';
 import ErrorIcon from '@mui/icons-material/Error';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 // Import our feedback service
 import feedbackService, { 
   AssignmentType, 
   WritingFeedback, 
-  FeedbackItem,
+  // Remove or comment out the unused import
+  // FeedbackItem,
   FeedbackCategory
 } from '../services/feedbackService';
 
 const FeedbackTool: React.FC = () => {
+  const theme = useTheme();
   const [text, setText] = useState('');
   const [assignmentType, setAssignmentType] = useState<AssignmentType | ''>('');
   const [formLevel, setFormLevel] = useState<number>(3); // Default to Form 3
@@ -332,27 +336,62 @@ const FeedbackTool: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Box sx={{ mb: 4 }}>
-        <Typography component="h1" variant="h4" gutterBottom>
+    <Container maxWidth="lg">
+      {/* Professional Header Section */}
+      <Box sx={{ mb: 5, textAlign: 'center' }}>
+        <Typography 
+          component="h1" 
+          variant="h3" 
+          gutterBottom
+          sx={{ 
+            fontWeight: 700, 
+            color: theme.palette.primary.dark,
+            mb: 2
+          }}
+        >
           Writing Feedback Tool
         </Typography>
-        <Typography variant="subtitle1" color="text.secondary">
+        <Typography 
+          variant="h6" 
+          color="text.secondary"
+          sx={{ 
+            maxWidth: 800, 
+            mx: 'auto',
+            mb: 4,
+            fontWeight: 400
+          }}
+        >
           Submit your academic writing to receive detailed feedback tailored to your education level
         </Typography>
+        
+        <Divider sx={{ mb: 5 }} />
       </Box>
 
-      <Paper sx={{ p: 3, mb: 4 }}>
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" gutterBottom>
-            Submit Your Writing
-          </Typography>
+      {/* Professional Submission Form */}
+      <Paper 
+        elevation={2} 
+        sx={{ 
+          p: 4, 
+          mb: 5, 
+          borderRadius: 2,
+          boxShadow: '0 8px 40px -12px rgba(0,0,0,0.1)',
+          border: '1px solid',
+          borderColor: 'divider'
+        }}
+      >
+        <Box sx={{ mb: 4 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+            <DescriptionIcon sx={{ color: 'primary.main', mr: 2, fontSize: 28 }} />
+            <Typography variant="h5" sx={{ fontWeight: 600 }}>
+              Submit Your Writing
+            </Typography>
+          </Box>
           
           {/* @ts-ignore */}
-          <Grid container spacing={2} sx={{ mb: 3 }}>
+          <Grid container spacing={3} sx={{ mb: 4 }}>
             {/* @ts-ignore */}
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth>
+              <FormControl fullWidth variant="outlined">
                 <InputLabel id="assignment-type-label">Assignment Type</InputLabel>
                 <Select
                   labelId="assignment-type-label"
@@ -360,6 +399,7 @@ const FeedbackTool: React.FC = () => {
                   value={assignmentType}
                   label="Assignment Type"
                   onChange={handleAssignmentTypeChange}
+                  sx={{ '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(0, 0, 0, 0.15)' } }}
                 >
                   <MenuItem value="essay">Essay</MenuItem>
                   <MenuItem value="research-paper">Research Paper</MenuItem>
@@ -371,7 +411,7 @@ const FeedbackTool: React.FC = () => {
             
             {/* @ts-ignore */}
             <Grid item xs={12} md={6}>
-              <FormControl fullWidth>
+              <FormControl fullWidth variant="outlined">
                 <InputLabel id="form-level-label">Form Level</InputLabel>
                 <Select
                   labelId="form-level-label"
@@ -379,6 +419,7 @@ const FeedbackTool: React.FC = () => {
                   value={formLevel.toString()}
                   label="Form Level"
                   onChange={handleFormLevelChange}
+                  sx={{ '& .MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(0, 0, 0, 0.15)' } }}
                 >
                   <MenuItem value="1">Form 1 (Beginner)</MenuItem>
                   <MenuItem value="2">Form 2 (Beginner)</MenuItem>
@@ -392,34 +433,52 @@ const FeedbackTool: React.FC = () => {
           </Grid>
           
           <TextField
-            label="Paste your text here"
+            label="Enter your academic writing"
             multiline
             rows={10}
             value={text}
             onChange={handleTextChange}
             variant="outlined"
             fullWidth
-            placeholder="Enter your academic writing here..."
-            sx={{ mb: 2 }}
+            placeholder="Paste your text here for analysis..."
+            sx={{ 
+              mb: 3,
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: 'rgba(0, 0, 0, 0.15)',
+                },
+                '&:hover fieldset': {
+                  borderColor: 'primary.light',
+                },
+              },
+            }}
           />
           
           {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
+            <Alert severity="error" sx={{ mb: 3, borderRadius: 1 }}>
               <AlertTitle>Error</AlertTitle>
               {error}
             </Alert>
           )}
           
-          <Button
-            variant="contained"
-            color="primary"
-            endIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SendIcon />}
-            onClick={handleSubmit}
-            disabled={loading}
-            size="large"
-          >
-            {loading ? 'Analyzing...' : 'Get Feedback'}
-          </Button>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              disabled={loading}
+              onClick={handleSubmit}
+              endIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SendIcon />}
+              sx={{ 
+                px: 4, 
+                py: 1.2,
+                borderRadius: '30px',
+                boxShadow: '0 4px 10px rgba(0, 0, 0, 0.15)',
+              }}
+            >
+              {loading ? 'Analyzing...' : 'Get Feedback'}
+            </Button>
+          </Box>
         </Box>
       </Paper>
 
@@ -450,25 +509,28 @@ const FeedbackTool: React.FC = () => {
         </Paper>
       )}
 
-      <Card sx={{ mb: 4 }}>
-        <CardContent>
-          <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center' }}>
-            <HelpOutlineIcon sx={{ mr: 1 }} />
+      {/* Tips Card with updated styling */}
+      <Card sx={{ mb: 5, borderRadius: 2, boxShadow: '0 8px 40px -12px rgba(0,0,0,0.1)' }}>
+        <CardContent sx={{ p: 4 }}>
+          <Typography variant="h5" sx={{ display: 'flex', alignItems: 'center', fontWeight: 600, mb: 3 }}>
+            <HelpOutlineIcon sx={{ mr: 2, color: theme.palette.primary.main }} />
             Tips for Getting Better Feedback
           </Typography>
           <Divider sx={{ my: 2 }} />
-          <Typography paragraph>
-            1. Submit a complete piece of writing rather than just a fragment to get more comprehensive feedback.
-          </Typography>
-          <Typography paragraph>
-            2. Select the correct assignment type and your current form level for the most relevant feedback.
-          </Typography>
-          <Typography paragraph>
-            3. Use the category tabs to explore different aspects of your writing after receiving feedback.
-          </Typography>
-          <Typography paragraph>
-            4. Review and apply the suggestions before submitting a revised version for additional feedback.
-          </Typography>
+          <Box sx={{ pl: 2 }}>
+            <Typography paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.6 }}>
+              1. Submit a complete piece of writing rather than just a fragment to get more comprehensive feedback.
+            </Typography>
+            <Typography paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.6 }}>
+              2. Select the correct assignment type and your current form level for the most relevant feedback.
+            </Typography>
+            <Typography paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.6 }}>
+              3. Use the category tabs to explore different aspects of your writing after receiving feedback.
+            </Typography>
+            <Typography paragraph sx={{ fontSize: '1.05rem', lineHeight: 1.6 }}>
+              4. Review and apply the suggestions before submitting a revised version for additional feedback.
+            </Typography>
+          </Box>
         </CardContent>
       </Card>
     </Container>
