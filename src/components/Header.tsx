@@ -24,7 +24,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import CreateIcon from '@mui/icons-material/Create';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import ScienceIcon from '@mui/icons-material/Science';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const Header: React.FC = () => {
   const theme = useTheme();
@@ -202,25 +201,6 @@ const Header: React.FC = () => {
                   </Button>
                 ))}
               </Box>
-              
-              <Button
-                variant="contained"
-                color="primary"
-                component={RouterLink}
-                to="/feedback"
-                endIcon={<ChevronRightIcon />}
-                sx={{
-                  borderRadius: '20px',
-                  px: 2.5,
-                  py: 0.8,
-                  boxShadow: 2,
-                  '&:hover': {
-                    boxShadow: 3,
-                  }
-                }}
-              >
-                Get Feedback
-              </Button>
             </>
           )}
         </Toolbar>
