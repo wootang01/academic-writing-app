@@ -54,7 +54,7 @@ const Header: React.FC = () => {
           component="div" 
           sx={{ flexGrow: 1 }}
         >
-          Academic Writing Coach
+          Academic Writing Tutor
         </Typography>
 
         {isMobile ? (

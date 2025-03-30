@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
         <Typography variant="body2" color="text.secondary" align="center">
           {'© '}
           {new Date().getFullYear()}
-          {' Academic Writing Coach for Hong Kong Students | '}
+          {' Academic Writing Tutor for Hong Kong Students | '}
           <Link color="inherit" href="#">
             Contact Us
           </Link>

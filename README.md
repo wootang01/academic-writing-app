@@ -1,4 +1,4 @@
-# Academic Writing Coach for Hong Kong Secondary Students
+# Academic Writing Tutor for Hong Kong Secondary Students
 
 An educational application designed specifically for Hong Kong secondary school students (ages 12-18) to learn and improve academic writing skills in English.
 
