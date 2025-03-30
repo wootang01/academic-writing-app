@@ -18,8 +18,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Chip,
-  Button,
-  Grid
+  Button
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
