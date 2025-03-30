@@ -1,11 +1,18 @@
 /**
  * Academic Writing Feedback Service
- * Uses Hugging Face Inference API to analyze student writing and provide feedback
+ * Uses secure backend proxy to access Hugging Face API for writing analysis
  */
+
+// Helper constants
+const API_BASE_URL = process.env.NODE_ENV === 'development' 
+  ? 'http://localhost:4000/api' 
+  : 'https://academic-writing-api.onrender.com/api'; // Your actual Render service URL
 
 // Models to use for different aspects of analysis
 const GRAMMAR_MODEL = 'textattack/roberta-base-CoLA';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const COHERENCE_MODEL = 'google/t5-base-lm-adapt';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FORMALITY_MODEL = 'cointegrated/rubert-tiny-toxicity';
 
 // Feedback analysis types
@@ -39,7 +46,7 @@ export type WritingFeedback = {
 export type AssignmentType = 'essay' | 'research-paper' | 'summary' | 'report';
 
 /**
- * Analyzes student writing using Hugging Face API
+ * Analyzes student writing via the secure backend API
  * @param text Student's written text
  * @param assignmentType Type of assignment
  * @param formLevel Hong Kong education form level (1-6)
@@ -55,129 +62,38 @@ export const analyzeWriting = async (
   }
   
   try {
-    // During development or if no API key, use mock data
-    if (!process.env.REACT_APP_HUGGINGFACE_API_KEY || process.env.NODE_ENV === 'development') {
-      console.log('Using mock data - No API key available or in development mode');
-      return generateMockFeedback(text, assignmentType, formLevel);
+    // Call our secure backend API instead of directly accessing Hugging Face
+    const response = await fetch(`${API_BASE_URL}/analyze/writing`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        text,
+        assignmentType,
+        formLevel
+      })
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('API error:', errorData);
+      throw new Error(errorData.error || 'Failed to analyze writing');
     }
-
-    // In production with API key, use the actual API
-    // This implementation shows the structure but would be expanded with real API calls
-    const feedback = await analyzeThroughHuggingFace(text, assignmentType, formLevel);
+    
+    const feedback = await response.json();
     return feedback;
   } catch (error) {
     console.error('Error analyzing writing:', error);
-    throw new Error('Failed to analyze your writing. Please try again later.');
-  }
-};
-
-/**
- * Makes actual API calls to Hugging Face
- * This would be expanded in a real implementation
- */
-const analyzeThroughHuggingFace = async (
-  text: string,
-  assignmentType: AssignmentType,
-  formLevel: number
-): Promise<WritingFeedback> => {
-  // Secret API key from environment variables - never exposed in client
-  const apiKey = process.env.REACT_APP_HUGGINGFACE_API_KEY;
-  
-  // Base feedback structure
-  const feedback: WritingFeedback = {
-    overview: {
-      wordCount: countWords(text),
-      readabilityScore: 0,
-      formalityScore: 0,
-      grammarScore: 0
-    },
-    strengths: [],
-    improvements: [],
-    detailedFeedback: {
-      grammar: [],
-      vocabulary: [],
-      structure: [],
-      coherence: [],
-      formality: [],
-      style: []
-    }
-  };
-
-  // Example API call for grammar checking
-  try {
-    const grammarResponse = await fetch(
-      `https://api-inference.huggingface.co/models/${GRAMMAR_MODEL}`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ inputs: text })
-      }
-    );
-
-    if (!grammarResponse.ok) {
-      throw new Error('Grammar API call failed');
-    }
-
-    const grammarData = await grammarResponse.json();
     
-    // Process grammar data
-    // This is a simplified example - would need to be expanded based on the model's output format
-    feedback.overview.grammarScore = grammarData[0]?.score * 100 || 70;
-    
-    // Additional API calls would be made for other aspects:
-    // - coherence analysis
-    // - formality detection
-    // - structure analysis, etc.
-    
-    // For now, fill with mock data
-    return enhanceWithMockData(feedback, text, assignmentType, formLevel);
-  } catch (error) {
-    console.error('Error in Hugging Face API call:', error);
-    // Fallback to mock data if API fails
+    // Fallback to mock data if API is unavailable
+    console.log('Using mock data due to API error');
     return generateMockFeedback(text, assignmentType, formLevel);
   }
 };
 
 /**
- * Helper to count words in text
- */
-const countWords = (text: string): number => {
-  return text.split(/\s+/).filter(Boolean).length;
-};
-
-/**
- * Enhances partial API results with mock data where needed
- */
-const enhanceWithMockData = (
-  partialFeedback: WritingFeedback, 
-  text: string, 
-  assignmentType: AssignmentType,
-  formLevel: number
-): WritingFeedback => {
-  const feedback = {...partialFeedback};
-  
-  // Add mock vocabulary feedback
-  if (feedback.detailedFeedback.vocabulary.length === 0) {
-    feedback.detailedFeedback.vocabulary = generateMockVocabularyFeedback(text, formLevel);
-  }
-  
-  // Add mock structure feedback based on assignment type
-  if (feedback.detailedFeedback.structure.length === 0) {
-    feedback.detailedFeedback.structure = generateMockStructureFeedback(text, assignmentType);
-  }
-  
-  // Generate overall strengths and improvements summaries
-  feedback.strengths = generateStrengths(feedback, text);
-  feedback.improvements = generateImprovements(feedback);
-  
-  return feedback;
-};
-
-/**
- * Generates mock feedback for development or when API is unavailable
+ * Generate mock feedback for when API is unavailable
  */
 const generateMockFeedback = (
   text: string, 
@@ -232,6 +148,13 @@ const generateMockFeedback = (
   feedback.improvements = generateImprovements(feedback);
   
   return feedback;
+};
+
+/**
+ * Helper to count words in text
+ */
+const countWords = (text: string): number => {
+  return text.split(/\s+/).filter(Boolean).length;
 };
 
 /**
@@ -546,6 +469,9 @@ const generateImprovements = (feedback: WritingFeedback): FeedbackItem[] => {
   return improvements.slice(0, 5);
 };
 
-export default {
+// Fix the anonymous default export
+const feedbackService = {
   analyzeWriting
-}; 
+};
+
+export default feedbackService; 
