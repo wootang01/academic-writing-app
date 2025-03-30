@@ -124,7 +124,8 @@ const FeedbackTool: React.FC = () => {
       case 'style':
         return 'Writing Style';
       default:
-        return category.charAt(0).toUpperCase() + category.slice(1);
+        // Type assertion to string to handle the never type issue
+        return (category as string).charAt(0).toUpperCase() + (category as string).slice(1);
     }
   };
 
