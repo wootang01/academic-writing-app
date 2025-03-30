@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
           {'© '}
           {new Date().getFullYear()}
           {' Academic Writing Tutor for Hong Kong Students | '}
-          <Link color="inherit" href="#">
+          <Link color="inherit" href="mailto:info@everwrite.com.hk">
             Contact Us
           </Link>
         </Typography>
