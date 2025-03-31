@@ -53,33 +53,32 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Inter',
-      'Segoe UI',
-      'Roboto',
+      '"Source Sans Pro"',
       '-apple-system',
       'BlinkMacSystemFont',
+      'Roboto',
       'Arial',
       'sans-serif',
     ].join(','),
     h1: {
       fontWeight: 700,
       fontSize: '2.5rem',
-      letterSpacing: '-0.02em',
+      letterSpacing: '-0.01em',
     },
     h2: {
       fontWeight: 700,
       fontSize: '2rem',
-      letterSpacing: '-0.015em',
+      letterSpacing: '-0.01em',
     },
     h3: {
       fontWeight: 600,
       fontSize: '1.75rem',
-      letterSpacing: '-0.01em',
+      letterSpacing: '0',
     },
     h4: {
       fontWeight: 600,
       fontSize: '1.5rem',
-      letterSpacing: '-0.005em',
+      letterSpacing: '0',
     },
     h5: {
       fontWeight: 600,
@@ -93,7 +92,7 @@ const theme = createTheme({
     },
     button: {
       textTransform: 'none',
-      fontWeight: 500,
+      fontWeight: 600,
       letterSpacing: '0.01em',
     },
     body1: {
@@ -105,12 +104,12 @@ const theme = createTheme({
       letterSpacing: '0.01em',
     },
     subtitle1: {
-      fontWeight: 500,
+      fontWeight: 600,
       fontSize: '1rem',
       letterSpacing: '0.01em',
     },
     subtitle2: {
-      fontWeight: 500,
+      fontWeight: 600,
       fontSize: '0.875rem',
       letterSpacing: '0.01em',
     },
