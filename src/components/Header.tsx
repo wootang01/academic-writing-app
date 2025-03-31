@@ -31,6 +31,12 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [imageLoaded, setImageLoaded] = useState(true);
+  
+  // Determine the correct image path based on the environment
+  const logoPath = process.env.NODE_ENV === 'development' 
+    ? '/images/logo.png'  // Local development path
+    : '/academic-writing-app/images/logo.png'; // Production path
   
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -88,30 +94,29 @@ const Header: React.FC = () => {
                 height: isMobile ? 36 : 40,
                 mr: 1.5,
                 boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontWeight: 'bold',
+                color: 'white'
               }}
             >
-              <img 
-                src="/academic-writing-app/images/logo.png" 
-                alt="Everwrite Logo"
-                style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'cover' 
-                }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  const parent = e.currentTarget.parentElement;
-                  if (parent) {
-                    parent.textContent = 'E';
-                    parent.style.display = 'flex';
-                    parent.style.justifyContent = 'center';
-                    parent.style.alignItems = 'center';
-                    parent.style.fontWeight = 'bold';
-                    parent.style.color = 'white';
-                  }
-                }}
-              />
+              {imageLoaded ? (
+                <img 
+                  src={logoPath}
+                  alt="Everwrite Logo"
+                  style={{ 
+                    width: '100%', 
+                    height: '100%', 
+                    objectFit: 'cover' 
+                  }}
+                  onLoad={() => setImageLoaded(true)}
+                  onError={() => setImageLoaded(false)}
+                />
+              ) : (
+                'E'
+              )}
             </Avatar>
             
             <Typography 
