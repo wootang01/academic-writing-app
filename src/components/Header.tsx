@@ -89,7 +89,7 @@ const Header: React.FC = () => {
           >
             <Avatar 
               sx={{ 
-                bgcolor: 'primary.main', 
+                bgcolor: 'transparent',
                 width: isMobile ? 36 : 40, 
                 height: isMobile ? 36 : 40,
                 mr: 1.5,
@@ -99,7 +99,7 @@ const Header: React.FC = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 fontWeight: 'bold',
-                color: 'white'
+                color: 'primary.main'
               }}
             >
               {imageLoaded ? (
