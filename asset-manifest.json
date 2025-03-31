@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/academic-writing-app/static/css/main.e6c13ad2.css",
+    "main.js": "/academic-writing-app/static/js/main.6700a842.js",
+    "static/js/453.785ab418.chunk.js": "/academic-writing-app/static/js/453.785ab418.chunk.js",
+    "index.html": "/academic-writing-app/index.html",
+    "main.e6c13ad2.css.map": "/academic-writing-app/static/css/main.e6c13ad2.css.map",
+    "main.6700a842.js.map": "/academic-writing-app/static/js/main.6700a842.js.map",
+    "453.785ab418.chunk.js.map": "/academic-writing-app/static/js/453.785ab418.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.6700a842.js"
+  ]
+}
