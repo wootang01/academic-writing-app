@@ -18,7 +18,6 @@ import {
   Tooltip
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import SchoolIcon from '@mui/icons-material/School';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import CreateIcon from '@mui/icons-material/Create';
@@ -88,10 +87,31 @@ const Header: React.FC = () => {
                 width: isMobile ? 36 : 40, 
                 height: isMobile ? 36 : 40,
                 mr: 1.5,
-                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)'
+                boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+                overflow: 'hidden'
               }}
             >
-              <SchoolIcon fontSize="small" />
+              <img 
+                src="/academic-writing-app/images/logo.png" 
+                alt="Everwrite Logo"
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover' 
+                }}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  const parent = e.currentTarget.parentElement;
+                  if (parent) {
+                    parent.textContent = 'E';
+                    parent.style.display = 'flex';
+                    parent.style.justifyContent = 'center';
+                    parent.style.alignItems = 'center';
+                    parent.style.fontWeight = 'bold';
+                    parent.style.color = 'white';
+                  }
+                }}
+              />
             </Avatar>
             
             <Typography 
