@@ -125,7 +125,7 @@ const Header: React.FC = () => {
               sx={{ 
                 fontWeight: 600,
                 color: 'primary.main',
-                letterSpacing: '0',
+                letterSpacing: '-0.01em',
                 display: 'flex',
                 alignItems: 'center'
               }}

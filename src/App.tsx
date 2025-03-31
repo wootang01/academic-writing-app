@@ -53,7 +53,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      '"Source Sans Pro"',
+      '"Work Sans"',
       '-apple-system',
       'BlinkMacSystemFont',
       'Roboto',
@@ -63,17 +63,17 @@ const theme = createTheme({
     h1: {
       fontWeight: 700,
       fontSize: '2.5rem',
-      letterSpacing: '-0.01em',
+      letterSpacing: '-0.02em',
     },
     h2: {
-      fontWeight: 700,
+      fontWeight: 600,
       fontSize: '2rem',
       letterSpacing: '-0.01em',
     },
     h3: {
       fontWeight: 600,
       fontSize: '1.75rem',
-      letterSpacing: '0',
+      letterSpacing: '-0.01em',
     },
     h4: {
       fontWeight: 600,
@@ -92,7 +92,7 @@ const theme = createTheme({
     },
     button: {
       textTransform: 'none',
-      fontWeight: 600,
+      fontWeight: 500,
       letterSpacing: '0.01em',
     },
     body1: {
@@ -104,12 +104,12 @@ const theme = createTheme({
       letterSpacing: '0.01em',
     },
     subtitle1: {
-      fontWeight: 600,
+      fontWeight: 500,
       fontSize: '1rem',
       letterSpacing: '0.01em',
     },
     subtitle2: {
-      fontWeight: 600,
+      fontWeight: 500,
       fontSize: '0.875rem',
       letterSpacing: '0.01em',
     },
