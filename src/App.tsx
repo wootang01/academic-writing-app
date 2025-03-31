@@ -53,44 +53,66 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
+      'Inter',
+      'Segoe UI',
+      'Roboto',
       '-apple-system',
       'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
       'Arial',
       'sans-serif',
     ].join(','),
     h1: {
-      fontWeight: 600,
+      fontWeight: 700,
       fontSize: '2.5rem',
+      letterSpacing: '-0.02em',
     },
     h2: {
-      fontWeight: 600,
+      fontWeight: 700,
       fontSize: '2rem',
+      letterSpacing: '-0.015em',
     },
     h3: {
       fontWeight: 600,
       fontSize: '1.75rem',
+      letterSpacing: '-0.01em',
     },
     h4: {
       fontWeight: 600,
       fontSize: '1.5rem',
-      letterSpacing: '0.015em',
+      letterSpacing: '-0.005em',
     },
     h5: {
       fontWeight: 600,
       fontSize: '1.25rem',
-      letterSpacing: '0.0075em',
+      letterSpacing: '0',
     },
     h6: {
       fontWeight: 600,
       fontSize: '1.125rem',
-      letterSpacing: '0.0075em',
+      letterSpacing: '0',
     },
     button: {
       textTransform: 'none',
       fontWeight: 500,
+      letterSpacing: '0.01em',
+    },
+    body1: {
+      fontSize: '1rem',
+      letterSpacing: '0.01em',
+    },
+    body2: {
+      fontSize: '0.875rem',
+      letterSpacing: '0.01em',
+    },
+    subtitle1: {
+      fontWeight: 500,
+      fontSize: '1rem',
+      letterSpacing: '0.01em',
+    },
+    subtitle2: {
+      fontWeight: 500,
+      fontSize: '0.875rem',
+      letterSpacing: '0.01em',
     },
   },
   shape: {
